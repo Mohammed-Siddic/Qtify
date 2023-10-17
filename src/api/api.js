@@ -10,3 +10,8 @@ export const fetchTopAlbums = async () => {
         console.log(e)
     }
 }
+
+export const fetchNewAlbums = async () => {
+    const res = await axios.get(`${BACKEND_ENDPOINT}/albums/new`)
+    return res.data
+}
