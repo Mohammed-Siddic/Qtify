@@ -15,3 +15,8 @@ export const fetchNewAlbums = async () => {
     const res = await axios.get(`${BACKEND_ENDPOINT}/albums/new`)
     return res.data
 }
+
+export const fetchSongs = async () => {
+    const res = await axios.get(`${BACKEND_ENDPOINT}/songs`);
+    return res.data;
+}

@@ -1,32 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './Section.module.css'
-import { CircularProgress } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 import Card from '../Card/Card'
 import Carousel from '../Carousel/Carousel';
+import BasicTabs from '../Tab/Tab';
 
-export const Section = ({title, data, type}) => {
+export const Section = ({title, data, type, filteredData=null, filteredDataValues=[], toggle = false , handleToggle=null, value=0, handleChange=null}) => {
 
-  const [carouselToggle, setCarouselToggle] = useState(true);
-
-  const handleToggle = () => {
-        setCarouselToggle(!carouselToggle)
-    } 
 
   return (
     <div>
         <div className={styles.header}>
             <h3>{title}</h3>
             <h4 className={styles.toggleText} onClick={handleToggle}>
-                {!carouselToggle ? "collapse All" : "show All" }
+                {!toggle ? "show All" : "collapse All" }
             </h4>
         </div>
-        {data.length === 0 ? (<CircularProgress />) : (
+        {type==="song" ? <BasicTabs value={value} handleChange={handleChange}/> : null }
+        {data.length === 0 ? (
+        <Box sx={{display: "flex", justifyContent:"center", alignItems:"center"}}>
+        <CircularProgress />
+        </Box>
+        ) : (
             <div className={styles.cardsWrapper}>
                 {
-                    !carouselToggle?(
+                    toggle?(
                        <div className={styles.wrapper}>
                           {
-                            data.map(item => (
+                            filteredDataValues.map(item => (
                                 <Card data={item} type={type} />
                             ))
                           }
